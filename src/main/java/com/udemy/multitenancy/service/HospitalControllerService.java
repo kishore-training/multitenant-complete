@@ -5,6 +5,7 @@ import com.udemy.multitenancy.model.DoctorUser;
 import com.udemy.multitenancy.model.Hospital;
 import com.udemy.multitenancy.model.types.UserTypeEnum;
 import com.udemy.multitenancy.utils.HospitalExistsException;
+import com.udemy.multitenancy.utils.HospitalNotFoundException;
 import com.udemy.multitenancy.vo.HospitalRequestVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -39,9 +40,9 @@ public class HospitalControllerService {
 
             hospital = HospitalRequestMapper.INSTANCE.hospitalVOToModel(requestVO);
             user = HospitalRequestMapper.INSTANCE.hospitalVOToDoctorUser(requestVO);
-            user.setUserTypeEnum(UserTypeEnum.HOSPITAL_ADMIN);
+            user.setUserTypeEnum(UserTypeEnum.HOSPITAL_TENANT_ADMIN);
             hospital.setCreateDateTime(Instant.now());
-
+            user.setHospitalName(requestVO.getHospitalName());
 
             hospital.setUpdateDateTime(Instant.now());
             user.setPassword(bcryptEncoder.encode(requestVO.getPassword()));
@@ -62,8 +63,12 @@ public class HospitalControllerService {
         return hospital;
     }
 
-    public void deleteOrganization(String organizationId) {
-        hospitalRepository.deleteById(organizationId);
+    public void deleteHospital(String hospitalName) throws HospitalNotFoundException {
+        List<Hospital> hospitals= hospitalRepository.findByHospitalName(hospitalName);
+        if (hospitals == null || hospitals.isEmpty()) {
+            throw new HospitalNotFoundException("Specified hospital not found");
+        }
+        hospitalRepository.deleteById(hospitals.get(0).getId());
     }
 
     public Hospital getHospital(String organizationId) {

@@ -28,27 +28,31 @@
                 <table class="table table-striped table-responsive-md">
                     <thead>
                     <tr>
-                        <th>Hospital Name</th>
-                        <th>Doctor Name</th>
+                        <th>Appointment Date</th>
                         <th>Patient Name</th>
                         <th>Patient Mobile</th>
-                        <th>Appointment Date</th>
+                        <th>Doctor Name</th>
+                        <th>Hospital Name</th>
+
 
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="appointment : ${appointments}">
-                        <td th:text="${hospitalName}"></td>
-                        <td th:text="${doctor}"></td>
+                        <td th:text="${appointment.appointmentDateTime}"></td>
+
                         <td th:text="${appointment.patientName}"></td>
                         <td th:text="${appointment.patientMobileNumber}"></td>
-                        <td th:text="${appointment.appointmentDateTime}"></td>
+                        <td th:text="${doctor}"></td>
+                        <td th:text="${hospitalName}"></td>
+
+
 
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <p class="my-5"><a th:href="@{/appointment/addAppointment(doctor=${doctor})}" ><i class="far fa-calendar-alt" style="color: blue"></i> Add Appointment</i></a></p>
+            <p class="my-5"><a th:href="@{/appointment/addAppointment(doctor=${doctor})}" ><i class="far fa-calendar-alt" style="color: blue"></i> Add Appointment</a></p>
         </div>
     </div>
 </div>

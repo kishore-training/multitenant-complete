@@ -42,10 +42,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/static/**").permitAll()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/register**").permitAll()
-                .antMatchers("/hospital**").permitAll()
+
+                .antMatchers("/hospital/register").permitAll()
                 .antMatchers("/").permitAll()
-                //only admin can add other doctor users
-                .antMatchers("/doctor/addUser**").hasAuthority(UserTypeEnum.HOSPITAL_ADMIN.name())
+
+                .antMatchers("/doctor/addUser**").hasAuthority(UserTypeEnum.HOSPITAL_TENANT_ADMIN.name())
+                .antMatchers("/hospital/delete").hasAuthority(UserTypeEnum.SUPER_ADMIN.name())
+                .antMatchers("/hospital").hasAuthority(UserTypeEnum.SUPER_ADMIN.name())
                 .anyRequest().authenticated()
 
 

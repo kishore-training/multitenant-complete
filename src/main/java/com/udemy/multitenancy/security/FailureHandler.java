@@ -20,6 +20,6 @@ public class FailureHandler implements AuthenticationFailureHandler {
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/doctor");
+        redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/login");
     }
 }

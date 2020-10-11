@@ -72,7 +72,7 @@ public class DoctorUserControllerService {
         if (hospitals == null || hospitals.isEmpty()) {
             throw new HospitalNotFoundException("Specified hospital not found");
         }
-        Hospital hospital = hospitals.get(0);
+
         List<DoctorUser> doctorUsers = doctorUserRepository.findByHospitalName(hospitalName);
 
         return doctorUsers;

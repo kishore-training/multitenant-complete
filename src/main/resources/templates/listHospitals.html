@@ -23,7 +23,7 @@
     <img src="../static/building.jpg" class="img-rounded px-5" alt="Hospital"  height="200">
     <br>
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-12">
             <h2 th:case="null">No users yet!</h2>
             <div th:case="*">
                 <h3 class="my-5">Hospitals</h3>
@@ -43,11 +43,12 @@
                         <td th:text="${hosp.email}"></td>
                         <td th:text="${hosp.mobileNumber}"></td>
                         <td><a th:href="@{/doctor(hospitalName=${hosp.hospitalName})}">Doctors</a></td>
+                        <td><a th:href="@{/hospital/delete(hospitalName=${hosp.hospitalName})}" th:action="Del"> <i class="fas fa-trash-alt"></i>DELETE</a></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <p class="my-5"><a th:href="/register" ><i class="far fa-hospital" style="color: blue"></i> Register Hospital</a></p>
+
         </div>
     </div>
 </div>
